@@ -5,6 +5,8 @@ import java.util.Optional;
 import com.example.webshopbackend.model.Original;
 import com.example.webshopbackend.service.OriginalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -52,12 +54,13 @@ public class OriginalController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id) {
+    public ResponseEntity<String> delete(@PathVariable long id) {
         Optional<Original> originalOptional = service.findById(id);
         if (originalOptional.isPresent()) {
             service.delete(originalOptional.get());
+            return ResponseEntity.ok("Deleted successfully"); // Return a 200 OK response
         } else {
-            throw new RuntimeException("Original not found with id: " + id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Original not found with id: " + id);
         }
     }
 
