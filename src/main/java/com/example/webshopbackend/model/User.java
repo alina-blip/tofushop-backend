@@ -1,12 +1,8 @@
 package com.example.webshopbackend.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import org.mindrot.jbcrypt.BCrypt;
 
 
 @Entity
@@ -32,6 +28,11 @@ public class User {
     private String email;
     @NotBlank(message = "Password must not be blank")
     private String password;
+   @Enumerated(EnumType.STRING)
+    private UserRole role;
+
+
+
 
     public String getPassword() {
         return password;
@@ -103,6 +104,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 }
 

@@ -53,6 +53,7 @@ public class UserController {
             user.setPostalcode(updatedUser.getPostalcode());
             user.setCountry(updatedUser.getCountry());
             user.setEmail(updatedUser.getEmail());
+            user.setRole(updatedUser.getRole());
             user.setPassword(updatedUser.getPassword());
             return service.save(user);
         } else {
