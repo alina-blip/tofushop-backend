@@ -16,8 +16,6 @@ public class UserDTO {
     private UserRole role;
     private String password;
 
-
-
     public Long getId() {
         return id;
     }
