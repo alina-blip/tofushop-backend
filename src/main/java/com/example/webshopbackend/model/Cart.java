@@ -13,12 +13,11 @@ public class Cart {
     private User user;
     @ManyToOne
     private Original original;
-    @Enumerated(EnumType.STRING)
-    private Category category;
-    private String size;
 
     private int count;
     private LocalDate date;
+
+
 
     public long getId() {
         return id;
@@ -44,21 +43,6 @@ public class Cart {
         this.original = original;
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
 
     public int getCount() {
         return count;

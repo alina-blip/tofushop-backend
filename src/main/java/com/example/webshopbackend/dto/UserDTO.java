@@ -1,45 +1,20 @@
-package com.example.webshopbackend.model;
+package com.example.webshopbackend.dto;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
+import com.example.webshopbackend.model.UserRole;
 import jakarta.validation.constraints.NotBlank;
 
-
-@Entity
-public class User {
-    @Id
-    @GeneratedValue
-    private long id;
-    @NotBlank
+public class UserDTO {
+    private Long id;
     private String name;
-    @NotBlank
     private String surname;
-    @NotBlank
     private String street;
-    @NotBlank
     private String housenumber;
-    @NotBlank
     private String postalcode;
-    @NotBlank
     private String country;
-    @Email
     @NotBlank
-    @Column(unique = true)
     private String email;
-    @NotBlank(message = "Password must not be blank")
-    private String password;
-   @Enumerated(EnumType.STRING)
     private UserRole role;
-
-
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    private String password;
 
     public Long getId() {
         return id;
@@ -112,7 +87,12 @@ public class User {
     public void setRole(UserRole role) {
         this.role = role;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
-
-
-
