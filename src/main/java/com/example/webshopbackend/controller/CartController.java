@@ -1,5 +1,4 @@
 package com.example.webshopbackend.controller;
-import com.example.webshopbackend.dto.CartDTO;
 import com.example.webshopbackend.model.Cart;
 import com.example.webshopbackend.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +16,11 @@ public class CartController {
     }
 
     @PostMapping("")
-    public CartDTO save(@RequestBody CartDTO cartDTO) {
-        return service.save(cartDTO);
+    public Cart save(@RequestBody Cart cart) {
+        return service.save(cart);
     }
     @GetMapping("")
-    public List<CartDTO> all() {
+    public List<Cart> all() {
         return service.findAll();
     }
 }

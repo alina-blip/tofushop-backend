@@ -1,5 +1,4 @@
 package com.example.webshopbackend.controller;
-import com.example.webshopbackend.dto.UserDTO;
 import com.example.webshopbackend.model.Original;
 import com.example.webshopbackend.model.User;
 import com.example.webshopbackend.service.UserService;
@@ -16,69 +15,7 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService service;
-    @Autowired
-    UserController(UserService service) {
-        this.service = service;
-    }
 
-    @GetMapping("")
-    public List<UserDTO> all() {
-        List<UserDTO> userDTOs = service.findAll();
-        return userDTOs;
-    }
-
-    @PostMapping("")
-    public UserDTO save(@RequestBody UserDTO userDTO) {
-        return service.save(userDTO);
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserDTO userDTO) {
-        UserDTO existingUser = service.findByEmail(userDTO.getEmail());
-        if (existingUser != null) {
-            // Compare the provided login password with the stored hashed password
-            if (BCrypt.checkpw(userDTO.getPassword(), existingUser.getPassword())) {
-                return ResponseEntity.ok("{\"message\": \"Login successful\"}");
-            }
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"message\": \"Invalid credentials\"}");
-    }
-
-    @PutMapping("/{id}")
-    public UserDTO update(@PathVariable long id, @RequestBody UserDTO updatedUserDTO) {
-        Optional<UserDTO> userOptional = service.findById(id);
-        if (userOptional.isPresent()) {
-            UserDTO userDTO = userOptional.get();
-            userDTO.setName(updatedUserDTO.getName());
-            userDTO.setSurname(updatedUserDTO.getSurname());
-            userDTO.setStreet(updatedUserDTO.getStreet());
-            userDTO.setHousenumber(updatedUserDTO.getHousenumber());
-            userDTO.setPostalcode(updatedUserDTO.getPostalcode());
-            userDTO.setCountry(updatedUserDTO.getCountry());
-            userDTO.setEmail(updatedUserDTO.getEmail());
-            userDTO.setRole(updatedUserDTO.getRole());
-            userDTO.setPassword(updatedUserDTO.getPassword());
-            return service.save(userDTO);
-        } else {
-            throw new RuntimeException("User not found with id: " + id);
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable long id) {
-        Optional<UserDTO> userOptional = service.findById(id);
-        if (userOptional.isPresent()) {
-            service.delete(userOptional.get());
-            return ResponseEntity.ok("User deleted successfully"); // Return a 200 OK response
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with id: " + id);
-        }
-    }
-
-
-
-
-    /*private final UserService service;
     @Autowired
     UserController(UserService service) {
         this.service = service;
@@ -87,8 +24,8 @@ public class UserController {
     public List<User> all() {
         return service.findAll();
     }
-*/
-   /* @PostMapping("")
+
+    @PostMapping("")
     public User save(@RequestBody User user) {
         return service.save(user);
     }
@@ -122,9 +59,9 @@ public class UserController {
         } else {
             throw new RuntimeException("User not found with id: " + id);
         }
-    }*/
+    }
 
-   /* @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable long id) {
         Optional<User> userOptional = service.findById(id);
         if (userOptional.isPresent()) {
@@ -133,6 +70,6 @@ public class UserController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with id: " + id);
         }
-    }*/
+    }
 
 }
